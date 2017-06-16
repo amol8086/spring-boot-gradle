@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: Employee Service
+server:
+  contextPath : /empservice
+  port : 7071
