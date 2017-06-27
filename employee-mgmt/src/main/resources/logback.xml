@@ -1,5 +1,51 @@
 <configuration>
+	<property name="DEV_HOME" value="D:/resources/empmgmt/logs" />
 
+	<appender name="FILE-DEBUG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${DEV_HOME}/debug.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{HH:mm:ss.SSS} [%-5level] [%32X{CORRELATION_ID}] [%7.7thread{7}] [%50.-50logger{50}]: %msg%n
+			</Pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${DEV_HOME}/archived/debug.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>5</maxHistory>
+		</rollingPolicy>
+
+	</appender>
+
+	<appender name="HTML-DEBUG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${DEV_HOME}/logFile.html</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>logs\logFile.%d{yyyy-MM-dd}.%i.html
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 50MB -->
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<charset>UTF-8</charset>
+			<layout class="ch.qos.logback.classic.html.HTMLLayout">
+				<pattern>%d{HH:mm:ss.SSS}%thread%level%logger%line%msg</pattern>
+			</layout>
+		</encoder>
+	</appender> 
+	
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
             by default -->
@@ -23,9 +69,12 @@
     <!-- <logger name="org.siemens.isb.test.asserts" level="OFF"></logger> -->
     <root level="ERROR,DEBUG">
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE-DEBUG"/>
+        <appender-ref ref="HTML-DEBUG"/>
     </root>
-    <logger name="com.weather.siemens" level="INFO"
-        additivity="false">
+    <logger name="com.sgs" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE-DEBUG" />
+        <appender-ref ref="HTML-DEBUG" />
     </logger>
 </configuration>

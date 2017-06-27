@@ -1,6 +1,31 @@
 spring:
   application:
-    name: Employee Service
+    name: EmployeeService
+  datasource:
+    url: jdbc:postgresql://localhost:5432/empservicedb
+    username: amol
+    password: amol123
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
 server:
   contextPath : /empservice
   port : 7071
+
+management:
+  port: 17071
+  context-path: /details
+  security:
+    enabled: false
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+
+      

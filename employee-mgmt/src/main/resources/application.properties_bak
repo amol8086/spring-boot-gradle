@@ -1,0 +1,22 @@
+management.port=8081
+management.context-path=/details
+management.security.enabled=true
+
+security.basic.enabled=true
+security.user.name=admin
+security.user.password=admin
+
+endpoints.info.id=info
+endpoints.info.sensitive=false
+endpoints.info.enabled=true
+endpoints.metrics.id=metrics
+endpoints.metrics.sensitive=true
+endpoints.metrics.enabled=true
+
+spring.datasource.url= jdbc:postgresql://localhost:5432/empservicedb
+spring.datasource.username=amol
+spring.datasource.password=amol123
+
+spring.jpa.database=POSTGRESQL
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=create
